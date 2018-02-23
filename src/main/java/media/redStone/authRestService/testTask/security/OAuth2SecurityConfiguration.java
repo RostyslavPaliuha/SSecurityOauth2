@@ -1,5 +1,7 @@
 package media.redStone.authRestService.testTask.security;
 
+import media.redStone.authRestService.testTask.service.UserCrudService;
+import media.redStone.authRestService.testTask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +24,13 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private ClientDetailsService clientDetailsService;
-	
+	@Autowired
+	private UserCrudService userService;
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        auth.userDetailsService(userService);/*inMemoryAuthentication()
         .withUser("bill").password("abc123").roles("ADMIN").and()
-        .withUser("bob").password("abc123").roles("USER");
+        .withUser("bob").password("abc123").roles("USER");*/
     }
 
     @Override

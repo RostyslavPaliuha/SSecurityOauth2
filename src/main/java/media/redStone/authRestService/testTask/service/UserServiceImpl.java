@@ -11,7 +11,7 @@ import media.redStone.authRestService.testTask.model.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
-	
+
 	private static final AtomicLong counter = new AtomicLong();
 	
 	private static List<User> users;
