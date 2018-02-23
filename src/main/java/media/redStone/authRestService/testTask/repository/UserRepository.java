@@ -32,11 +32,12 @@ public class UserRepository extends DatasourceFactory {
         getSession().delete(user);
     }
 
-    public void deleteUser(Long id){
-        Query query = getSession().createQuery("delete "+ User.class.getSimpleName() + " where user_id = :id");
+    public void deleteUser(Long id) {
+        Query query = getSession().createQuery("delete " + User.class.getSimpleName() + " where user_id = :id");
         query.setParameter("id", id);
         int result = query.executeUpdate();
     }
+
     public User getUserById(Long id) {
         return getSession().get(User.class, id);
     }
@@ -50,7 +51,8 @@ public class UserRepository extends DatasourceFactory {
     public List<User> getAllUsers() {
         return (List<User>) getSession().createQuery("FROM " + User.class.getName()).list();
     }
-    public void deleteAllUsers(){
-        Query query = getSession().createQuery("delete from "+ User.class.getSimpleName());
+
+    public void deleteAllUsers() {
+        Query query = getSession().createQuery("delete from " + User.class.getSimpleName());
     }
 }

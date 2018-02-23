@@ -71,10 +71,6 @@ public class User implements UserDetails {
         this.salary = salary;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -103,18 +99,22 @@ public class User implements UserDetails {
                 + ", salary=" + salary + "]";
     }
 
-    public void setAuthorities(Collection<Role> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    public void setAuthorities(Collection<Role> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

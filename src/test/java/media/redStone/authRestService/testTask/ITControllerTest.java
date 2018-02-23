@@ -1,7 +1,6 @@
 package media.redStone.authRestService.testTask;
 
 import media.redStone.authRestService.testTask.configuration.MainJavaConfig;
-import media.redStone.authRestService.testTask.service.CrudUserService;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,17 +31,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {MainJavaConfig.class})
 @WebAppConfiguration
 public class ITControllerTest {
+    private final String usersUrl = "/user/?access_token=";
     private MockMvc mockMvc;
-
     @Autowired
     private Filter filterChainProxy;
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     private MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
     private String accessToken;
     private String refreshToken;
-    private final String usersUrl = "/user/?access_token=";
+
+    private static HttpHeaders getHeadersWithClientCredentials() {
+        String plainClientCredentials = "my-trusted-client:secret";
+        String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
+
+        HttpHeaders headers = getHeaders();
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
+        return headers;
+    }
+
+    private static HttpHeaders getHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        return headers;
+    }
 
     @Before
     public void setUp() {
@@ -70,22 +82,6 @@ public class ITControllerTest {
                 .andExpect(jsonPath("$.[1].name", is("Taras")))
                 .andExpect(jsonPath("$.[2].name", is("Mukola")))
                 .andExpect(jsonPath("$.[3].name", is("Vasul")));
-    }
-
-
-    private static HttpHeaders getHeadersWithClientCredentials() {
-        String plainClientCredentials = "my-trusted-client:secret";
-        String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
-
-        HttpHeaders headers = getHeaders();
-        headers.add("Authorization", "Basic " + base64ClientCredentials);
-        return headers;
-    }
-
-    private static HttpHeaders getHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        return headers;
     }
 
 }

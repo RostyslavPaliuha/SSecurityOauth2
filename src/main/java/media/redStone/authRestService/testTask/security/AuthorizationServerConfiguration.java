@@ -16,40 +16,40 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	private static String REALM="MY_OAUTH_REALM";
-	
-	@Autowired
-	private TokenStore tokenStore;
+    private static String REALM = "MY_OAUTH_REALM";
 
-	@Autowired
-	private UserApprovalHandler userApprovalHandler;
+    @Autowired
+    private TokenStore tokenStore;
 
-	@Autowired
-	@Qualifier("authenticationManagerBean")
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserApprovalHandler userApprovalHandler;
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
-		clients.inMemory()
-	        .withClient("my-trusted-client")
-            .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-            .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-            .scopes("read", "write", "trust")
-            .secret("secret")
-            .accessTokenValiditySeconds(120).
-            refreshTokenValiditySeconds(600);
-	}
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
-				.authenticationManager(authenticationManager);
-	}
+        clients.inMemory()
+                .withClient("my-trusted-client")
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+                .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
+                .scopes("read", "write", "trust")
+                .secret("secret")
+                .accessTokenValiditySeconds(120).
+                refreshTokenValiditySeconds(600);
+    }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		oauthServer.realm(REALM+"/client");
-	}
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
+                .authenticationManager(authenticationManager);
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.realm(REALM + "/client");
+    }
 
 }

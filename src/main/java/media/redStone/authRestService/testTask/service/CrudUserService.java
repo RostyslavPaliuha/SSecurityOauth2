@@ -15,6 +15,8 @@ public interface CrudUserService extends UserDetailsService {
     void saveUser(User user);
 
     void updateUser(User user);
+
     void deleteUserById(Long id);
+
     void deleteAllUsers();
 }
