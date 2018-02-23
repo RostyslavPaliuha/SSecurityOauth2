@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class RoleDao extends DatasourceFactory {
+public class RoleRepository extends DatasourceFactory {
     public Role getRoleById(int id) {
         return (Role) getSession().get(Role.class, id);
     }

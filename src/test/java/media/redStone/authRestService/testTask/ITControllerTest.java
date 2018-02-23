@@ -1,12 +1,7 @@
 package media.redStone.authRestService.testTask;
 
-import media.redStone.authRestService.testTask.configuration.MainInitializer;
 import media.redStone.authRestService.testTask.configuration.MainJavaConfig;
-import media.redStone.authRestService.testTask.security.AuthorizationServerConfiguration;
-import media.redStone.authRestService.testTask.security.MethodSecurityConfig;
-import media.redStone.authRestService.testTask.security.OAuth2SecurityConfiguration;
-import media.redStone.authRestService.testTask.security.ResourceServerConfiguration;
-import media.redStone.authRestService.testTask.service.UserService;
+import media.redStone.authRestService.testTask.service.CrudUserService;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,8 +38,7 @@ public class ITControllerTest {
     private Filter filterChainProxy;
     @Autowired
     private WebApplicationContext webApplicationContext;
-    @Autowired
-    private UserService userService;
+
     private MultiValueMap<String, String> paramsMap = new LinkedMultiValueMap<>();
     private String accessToken;
     private String refreshToken;
