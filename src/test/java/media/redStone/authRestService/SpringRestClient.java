@@ -19,11 +19,11 @@ import media.redStone.authRestService.testTask.model.User;
  
 public class SpringRestClient {
  
-    public static final String REST_SERVICE_URI = "http://localhost:8080/";
+    public static final String REST_SERVICE_URI = "http://localhost:8080";
     
     public static final String AUTH_SERVER_URI = "http://localhost:8080/oauth/token";
     
-    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=bill&password=abc123";
+    public static final String QPM_PASSWORD_GRANT = "?grant_type=password&username=Rostyslav&password=1111";
     
     public static final String QPM_ACCESS_TOKEN = "?access_token=";
 

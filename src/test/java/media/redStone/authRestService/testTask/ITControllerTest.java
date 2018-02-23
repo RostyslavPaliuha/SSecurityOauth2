@@ -8,11 +8,14 @@ import media.redStone.authRestService.testTask.security.ResourceServerConfigurat
 import media.redStone.authRestService.testTask.service.UserService;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -29,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {MainJavaConfig.class, AuthorizationServerConfiguration.class, MethodSecurityConfig.class, OAuth2SecurityConfiguration.class, ResourceServerConfiguration.class})
 @WebAppConfiguration
 public class ITControllerTest {
@@ -54,7 +57,7 @@ public class ITControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filterChainProxy).build();
     }
 
-    // @Test
+    @Test
     public void shouldPassAuthenticationAndRetrieveData() throws Exception {
         MvcResult mvcResult = mockMvc.perform(post("/oauth/token").params(paramsMap).headers(getHeadersWithClientCredentials())).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.access_token").exists())
@@ -68,10 +71,10 @@ public class ITControllerTest {
         refreshToken = parser.parseMap(mvcResult.getResponse().getContentAsString()).get("refresh_token").toString();
         mockMvc.perform(get(usersUrl + accessToken).accept(MediaType.APPLICATION_JSON_UTF8))
                 //.andExpect(jsonPath("$.length", is(4)))
-                .andExpect(jsonPath("$.[0].name", is("Sam")))
-                .andExpect(jsonPath("$.[1].name", is("Tom")))
-                .andExpect(jsonPath("$.[2].name", is("Jerome")))
-                .andExpect(jsonPath("$.[3].name", is("Silvia")));
+                .andExpect(jsonPath("$.[0].name", is("Rostyslav")))
+                .andExpect(jsonPath("$.[1].name", is("Taras")))
+                .andExpect(jsonPath("$.[2].name", is("Mukola")))
+                .andExpect(jsonPath("$.[3].name", is("Vasul")));
     }
 
 

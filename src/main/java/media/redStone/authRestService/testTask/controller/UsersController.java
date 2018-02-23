@@ -1,7 +1,8 @@
 package media.redStone.authRestService.testTask.controller;
  
 import java.util.List;
- 
+
+import media.redStone.authRestService.testTask.service.CrudUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,14 @@ public class UsersController {
  
     @Autowired
     UserService userService;
+    @Autowired
+    CrudUserService crudUserService;
 
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
+        List<User> users = crudUserService.getListOfUsers();
         if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
