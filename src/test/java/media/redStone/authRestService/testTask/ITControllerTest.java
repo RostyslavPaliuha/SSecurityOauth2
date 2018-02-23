@@ -1,5 +1,6 @@
 package media.redStone.authRestService.testTask;
 
+import media.redStone.authRestService.testTask.configuration.MainInitializer;
 import media.redStone.authRestService.testTask.configuration.MainJavaConfig;
 import media.redStone.authRestService.testTask.security.AuthorizationServerConfiguration;
 import media.redStone.authRestService.testTask.security.MethodSecurityConfig;
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {MainJavaConfig.class, AuthorizationServerConfiguration.class, MethodSecurityConfig.class, OAuth2SecurityConfiguration.class, ResourceServerConfiguration.class})
+@ContextConfiguration(classes = {MainJavaConfig.class})
 @WebAppConfiguration
 public class ITControllerTest {
     private MockMvc mockMvc;
