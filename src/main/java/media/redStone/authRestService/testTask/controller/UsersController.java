@@ -36,14 +36,14 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-        if (crudUserService.checkIfExists(user)) {
+    public ResponseEntity createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+       /* if (crudUserService.checkIfExists(user)) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+        }*/
         crudUserService.saveUser(user);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)

@@ -13,7 +13,7 @@ import java.util.List;
 public class UserRepository extends DatasourceFactory {
 
     public boolean checkIfExists(User user) {
-        if (!user.getName().equals("") & getUserByName(user.getUsername()) != null) {
+        if (!user.getName().equals("") & getUserByName(user.getUsername()) == null) {
             return true;
         } else {
             return false;
